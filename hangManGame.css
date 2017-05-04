@@ -1,0 +1,81 @@
+
+/*font-family: 'Amatic SC', cursive;  use for header
+font-family: 'Acme', sans-serif; use to show answer
+font-family: 'Roboto', sans-serif; use for non game components
+font-family: 'Walter Turncoat', cursive;*/  
+
+
+
+/********/
+/*Header*/
+.jumbotron {
+	background-color: rgb(0,0,0);
+	background-repeat: no-repeat;
+	background-position: center center;
+	box-shadow: 0 0 8px 8px white inset;
+	height: 270px !important;
+	/*margin-bottom: 15px;*/
+}
+
+.container {
+	color: rgb(255, 255, 255);
+	/*font-family: 'Russo One', sans-serif;*/
+	font-family: 'Walter Turncoat', cursive;
+}
+
+
+
+/*******************/
+/*    Letters    */
+
+.letter {
+	width: 3.3rem;
+	height: 30px;
+	margin: 5px;
+}
+
+li {
+	display: inline;
+}
+
+.btn {
+	/*font-family: 'Roboto', sans-serif;*/
+	/*font-family: 'Russo One', sans-serif !important; */
+	font-family: 'Walter Turncoat', cursive;
+	font-weight: 100;
+	padding: 2px;
+}
+
+
+/****************/
+/*  hangman img   */
+.hangImg {
+	/*text-align: center;*/
+	width: 170px ! important;
+	height: 170px ! important;
+}
+
+
+/*************/
+/* underscore array */
+.underScores {
+	position: relative;
+	list-style: none;
+	margin: 0;
+	display: inline-block;
+	padding: 0 5px;
+	font-size: 40px;
+	color: rgb(0, 0, 0);
+}
+
+
+ /***************/
+/*modal buttons*/
+.modal-button {
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+.modal-button h4 {
+	padding: 0 10px 0 10px;
+}
+

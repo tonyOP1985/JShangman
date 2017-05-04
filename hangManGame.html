@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<title>Hangman Game</title>
+
+	<script src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+
+	<!-- Bootstrap -->
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Optional theme -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+	<link rel="stylesheet" type="text/css" href="hangManGame.css">
+
+	<!-- Google Fonts -->
+	<link href="https://fonts.googleapis.com/css?family=Acme|Amatic+SC|Roboto" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Russo+One" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Walter+Turncoat" rel="stylesheet">
+</head>
+<body onload="hangManMain()">
+
+	<header class="jumbotron">
+		<p style="padding: 15px;"></p>
+		<div class="container text-center">
+			<div class="col-xs-12">
+				<h1 class="hangman-header">Hangman</h1>
+			</div>
+		</div>
+		<p style="padding: 15px;"></p>
+
+
+		<div id="gameWonModal" class="modal fade" role="dialog">
+			<div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      	<div class="modal-header">
+			        	<!-- <h5 class="modal-title">Modal title</h5> -->
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+			     	</div>
+			      	<div class="modal-body">
+			      		<h1>You've Won!</h1>
+			        	<p>You have managed to evade the hangman's noose.</p>
+			      	</div>
+			      	<div class="modal-footer">
+			        	<button type="button" class="btn btn-primary modal-button" onclick="reloadGame()"><h4>Play Again</h4></button>
+			        	<button type="button" class="btn btn-secondary modal-button" id="#closeGameWonModal" data-dismiss="modal"><h4>Close</h4></button>
+			      	</div>
+			    </div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+		<div id="gameOverModal" class="modal fade" role="dialog">
+			<div class="modal-dialog" role="document">
+			    <div class="modal-content">
+			      	<div class="modal-header">
+			        	<!-- <h5 class="modal-title">Modal title</h5> -->
+			        	<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			          		<span aria-hidden="true">&times;</span>
+			        	</button>
+			     	</div>
+			      	<div class="modal-body">
+			      		<h1>Game Over</h1>
+			        	<p>This word was: <strong id="correctWord"></strong></p>
+			      	</div>
+			      	<div class="modal-footer">
+			        	<button type="button" class="btn btn-primary btn-lg modal-button" onclick="reloadGame()"><h4>Play Again</h4></button>
+			        	<button type="button" class="btn btn-secondary btn-lg modal-button" id="#closeOverWonModal" data-dismiss="modal"><h4>Close</h4></button>
+			      	</div>
+			    </div><!-- /.modal-content -->
+			</div><!-- /.modal-dialog -->
+		</div><!-- /.modal -->
+
+
+
+	</header>
+
+	<div class="container">
+		<div class="row row-content">
+			<div class="col-xs-12 col-sm-4">
+					<img class="center-block hangImg" src="img/hangMan1.png" id="hangManImg">
+			</div>
+			<div class="col-xs-12 col-sm-7">
+				<ul class="list-unstyled">
+					<li><button type="button" class="btn btn-primary letter" id="A">A</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="B">B</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="C">C</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="D">D</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="E">E</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="F">F</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="G">G</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="H">H</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="I">I</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="J">J</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="K">K</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="L">L</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="M">M</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="N">N</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="O">O</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="P">P</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="Q">Q</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="R">R</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="S">S</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="T">T</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="U">U</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="V">V</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="W">W</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="X">X</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="Y">Y</button></li>
+					<li><button type="button" class="btn btn-primary letter" id="Z">Z</button></li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="row row-content">
+			<div class="col-xs-12 text-center" id="list-content">
+				<ul class="underscore-ul" id="underScores">
+					
+				</ul>
+			</div>	
+		</div>
+	</div>
+</body>
+
+
+<!-- <script src="jquery-3.2.1.js"></script> -->
+<script src="domHangMan.js"></script>
+
+</html>
