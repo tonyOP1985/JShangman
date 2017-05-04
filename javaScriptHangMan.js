@@ -1,141 +1,106 @@
-	var words = ['cat', 'beatific', 'javascript', 'benevolent', 'fluffy', 'geography', 'jupiter', 'saturn', 'fundamental', 'introduction'];
-	// var words = ["cat"];  //set to cat just to keep testing short since selectRandomWord() works fine
-	var alphabet;
-	var target;
-	var userInput;
-	var lowerCaseUserInput;
-	var lettersInWord;
-	var underScore;
-	var bool;
-	var inValidInput;
-	var letterPositionsInWord;
-	var lettersUsed = [];
 
 
+// selects word at random
+function selectRandomWord() {
+	// var words = ['cat', 'beatific', 'javascript', 'benevolent', 'fluffy', 'geography', 'jupiter', 'saturn', 'fundamental', 'introduction'];
+	var words = ['fluffy']; // using one word for testing
+	var randomNumber = Math.random() * words.length;
+	var randomNumberInt = Math.floor(randomNumber);
+	var target = words[randomNumberInt];
+	alert("My word is " + target.length + " letters long.");
+	return target;
+}
 
 
-	// selects word at random
-	function selectRandomWord() {
-		var randomNumber = Math.random() * words.length;
-		var randomNumberInt = Math.floor(randomNumber);
-		target = words[randomNumberInt];
-		// alert(target); //shows randomly selected word for testing purposes 
-		return alert("My word is " + target.length + " letters long.");
+// determines in userinput is valid
+function checkInput(userInput, alphabet) {
+	if (userInput.length === 0) { //checks if input was entered
+		return false;
 	}
+	else if (userInput.length > 1) {  // returns false if more than one letter is entered
+		return false;
+	}
+	else if ((alphabet.indexOf(userInput) > -1) === false) { // returns false if userinput is not a letter of the alphabet
+		return false;
+	}
+}
 
 
-	// checks if user input is in randomly selected word
-	function isLetterInWord() {
-		//lettersUsed.push(userInput);  //keeps track of all userinputs to let the user know what has already been used.
-		lowerCaseUserInput = userInput.toLowerCase(); 
-		if ((lettersUsed.indexOf(lowerCaseUserInput) > -1) === true) {  // returns false if input has already been entered/ This will be moved to checkInput()
-			alert("Letter has already been used.  Please enter a different letter.");
-			return false;
-		}
-		else if ((target.indexOf(lowerCaseUserInput) > -1) === false) {
-			lettersUsed.push(userInput); //keeps track of all userinputs to let the user know what has already been used.
-			alert("Please try again.");
-			return false;
-		} 
-		else {
-			lettersUsed.push(userInput);
-			return true;
-		}
-	}	
+// determines if user input is in target
+function isLetterInWord(word, userInput) {
+	if ((word.indexOf(userInput) > -1) === false) {   // returns false if user input is not in target
+		return false;
+	}
+	else {
+		return true;   // returns true is user input is in target
+	}
+}
 
-	// checks for invalid input
-	function checkInput() {
-		lowerCaseUserInput = userInput.toLowerCase();
-		if (userInput.length === 0) {   // returns false if prompt pop up dismissed without entering any input
-			alert("Please only enter a single letter."); 
-			return false;
-		}
-		else if ((alphabet.indexOf(lowerCaseUserInput) > -1) === false) { // returns false if input is a non alphabet character
-			alert("Please only enter letters of the alphabet.");
-			return false;
-		}
-		else if (userInput.length > 1) {   // returns false if more than one character is entered 
-			alert("Please only enter a single letter.");
-			return false;
+
+
+// creates an array that has indexes of each letter of target
+function getLetterIndexs(word, userInput) {   
+	var wordArray = word.split("");
+	var letterIndex = [];
+	for(var i = 0; i < wordArray.length; i++) {
+		if (wordArray[i] === userInput) {
+			letterIndex.push(i);
 		}
 	}
+	return letterIndex;
+}
+
+
+// shows where correct user input is in target  
+function showLetterPositions(word, userInput, array) {
+	var index = getLetterIndexs(word, userInput);
+	for(var i = 0; i < index.length; i++) {
+		array[index[i]] = userInput;
+	}
+	return array;
+}
 
 
 
-
-	//counts how many of user input is in word
-	function letterCount() {
-		var lowerCaseTarget = target.toLowerCase();
-		var lowerCaseUserInput = userInput.toLowerCase();
-		var letterArray = [];
-		for(var i = 0; i <= lowerCaseTarget.length; i++)
-			if (lowerCaseTarget[i] == lowerCaseUserInput) {
-				letterArray.push(target[i]);
+// implements hangman game
+function hangManMain() {
+	var alphabet = "abcdefghijklmnopqrstuvwxyz";
+	var usedLetters = [];
+	var correctInputArray = [];
+	var incorrectGuesses = 0;
+	var finish = false;
+	alert("Welcome to Hangman!");
+	var ranWord = selectRandomWord();
+	while(!finish) {
+		var userInput = prompt("Please a letter of the alphabet.");
+		var lowerCaseUserInput = userInput.toLowerCase(); 
+		if ((alphabet.indexOf(lowerCaseUserInput) > - 1) === true && lowerCaseUserInput.length === 1) { // creates array of correct or incorrect valid input to show what has already been used
+			usedLetters.push(lowerCaseUserInput);
+		}
+		var isInputValid = checkInput(lowerCaseUserInput, alphabet);
+		var isInputCorrect = isLetterInWord(ranWord, lowerCaseUserInput);
+		if (isInputValid === false || isInputCorrect === false) {
+			incorrectGuesses += 1;
+			if (incorrectGuesses === 10) {
+				alert("Game Over!");
+				break;
 			}
-		if (letterArray.length == 1) {
-			return alert("Yes! " + lowerCaseUserInput + " is in my word.\n\n" + "There is only " + letterArray.length + " " + userInput + " in my word.");
-		}
-		else {
-			return alert("Yes! " + lowerCaseUserInput + " is in my word.\n\n" + "There are " + letterArray.length + " " + userInput +"'s in my word.");
-		}
-	}
-
-
-	//creates array with indexes of user input in word
-	function getLetterIndexes() {
-		var targetArray = target.split("");
-		var letterIndex = [];
-		for(var i = 0; i < targetArray.length; i++) {
-			if (targetArray[i] == userInput) {
-				letterIndex.push(i);
-			}
-		}
-		return letterIndex;
-	}
-
-
-	//show user where correct letter is in word
-	var underScoreArray = []; //called underScoreArray because of a function that will be implemented in the future that shows underscores for empty spaces
-	function showLetterPositions() {
-		var letterIndex = getLetterIndexes();
-		for(var i = 0; i < letterIndex.length; i++) {
-			underScoreArray[letterIndex[i]] = userInput;
-		}
-		return alert("Here are where the letters fit in my word.\n\n" + underScoreArray.join(" "));
-	}
-
-
-	//puts all the functions together and initiates Hangman Game
-	function main() {
-		alphabet = "abcdefghijklmnopqrstuvwxyz";
-		var correctGuesses = 0;
-		var incorrectGuesses = 0;
-		var finish = false;
-		selectRandomWord();
-		alert("Here are the letters you have to choose from:\n\n" + alphabet);
-		while(!finish) {
-			userInput = prompt("Please enter a letter of the alphabet.");
-			isUserCorrect = isLetterInWord();
-			inValidInput = checkInput();
-			// if isletterInWord or inValidInput returns false, guess gets counted as incorrect
-			if (isUserCorrect === false || inValidInput === false) {
-				showLetterPositions();
-				incorrectGuesses += 1;
-				if (incorrectGuesses === 10) { 
-					alert("Game Over");
-					break;
+			else {
+				alert("Please Try again.");
+				if (usedLetters.length > 0) { // invalid input of more than letter of the alphabet does not get pushed to usedletters
+					alert("Here are the letters you've used so far.\n\n" + usedLetters);
 				}
 			}
-			// if isLetterInWord returns true, guess gets counted as correct
-			else if (isUserCorrect === true) {  
-				letterCount();
-				showLetterPositions();
-				correctGuesses += 1;
-				if (underScoreArray.join("") === target) {
-					alert("You've Won!!");
-					break;
-				}
+		}
+		else if (isInputCorrect === true) {
+			alert("Yes! " + lowerCaseUserInput + " is in my word!");
+			var letterPositions = showLetterPositions(ranWord, lowerCaseUserInput, correctInputArray);
+			alert("Here are where the letters fit in my word.\n\n" + letterPositions.join("  "));
+			if (letterPositions.join("") === ranWord) {  
+				alert("You've Won!");
+				break;
 			}
-			alert("Letters you've used:\n\n" + lettersUsed);
+			alert("Here are the letters you've used so far.\n\n" + usedLetters);
 		}
 	}
+}
