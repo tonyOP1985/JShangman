@@ -1,3 +1,7 @@
+$(document).ready(function(){
+	//once the DOM is fully loaded, then run that stuff
+});
+
 // selects word at random
 function selectRandomWord(array) {
 	var randomNumber = Math.random() * array.length;
