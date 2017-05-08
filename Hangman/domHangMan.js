@@ -71,7 +71,6 @@ function showLetterPositions(word, userInput, array) {
 //updates ulList with correct letters
 function showCorrectLetters(word, userInput) {
 	var index = getLetterIndexs(word, userInput);
-	console.log(index);
 	for(var i = 0; i < index.length; i++) {  
 		$(".underscore-ul > li:nth-child("+ (index[i] + 1) +")").text(userInput);
 	}
@@ -134,11 +133,7 @@ function reloadGame() {
 function gameWonModal(word) {
 	$("#correctWord").text(word);
 	setTimeout(function () {
-		$(document).ready(function() {
-			$("#gameWonModal").modal("show", function(e) {
-					$("#closeGameWonModal").click().hide();
-			});
-		});
+		$("#gameWonModal").modal("show");
 	}, 500);
 }
 
@@ -147,12 +142,8 @@ function gameWonModal(word) {
 //creates modal alerting the user that they have lost the game and shows what ranWord was
 function gameOverModal(word) {
 	setTimeout(function () {
-		$(document).ready(function() {
-			$("#gameOverModal").modal("show", function(e) {
-					$("#closeGameOverModal").click().hide();
-			});
-			$("strong").text(word);
-		});
+		$("#gameOverModal").modal("show");
+		$("strong").text(word);
 	}, 500);
 }
 
@@ -161,22 +152,18 @@ function gameOverModal(word) {
 
 // runs hangman game
 function hangManMain() {
-	// var words =  ["mars"];
 	var words = ["mercury", "venus", "earth", "mars", "jupiter", "saturn", "uranus", "neptune", "pluto"];
 	var incorrectGuesses = 0;
 	var ranWord = selectRandomWord(words);
-	console.log(ranWord);
 	var underScores = createUnderScoreArray(ranWord);
-	var ulList = createUlListItems(underScores);
-	$(document).ready(function(){   
+	$(document).ready(function(){
+		var ulList = createUlListItems(underScores);   
 	    $("button").click(function(event){   // to prevent following code in function from executing onload
 	        event.preventDefault();
 	        var id = getBtnId(this.id);
 			var isInWord = isLetterInWord(ranWord, id)
-			console.log(isInWord);
 			if (isInWord === false) {
 				incorrectGuesses += 1;
-				console.log(incorrectGuesses);
 				upDateImg(incorrectGuesses);
 				if (incorrectGuesses === 6) {
 					gameOverModal(ranWord);
@@ -195,3 +182,7 @@ function hangManMain() {
 }
 
 
+
+window.onload = function() {
+	hangManMain();
+};

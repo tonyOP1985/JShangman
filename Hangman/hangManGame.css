@@ -71,11 +71,25 @@ li {
 
  /***************/
 /*modal buttons*/
+.modal {
+	font-family: 'Walter Turncoat', cursive;
+}
+
+.modal-body {
+	text-align: center;
+}
+
 .modal-button {
-	font-family: Helvetica, Arial, sans-serif;
+	font-family: 'Walter Turncoat', cursive;
 }
 
 .modal-button h4 {
 	padding: 0 10px 0 10px;
 }
+
+#gameOverModal h1 {
+	color: rgb(160, 9, 9);
+}
+
+
 
