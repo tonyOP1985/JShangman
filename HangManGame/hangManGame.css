@@ -139,7 +139,7 @@ img {
 /* game Won Modal */
 
 .gameWonModal {
-	border: solid 2px rgb(221, 221, 221);
+	border: solid 1px rgb(221, 221, 221);
 	border-radius: 10px;
 	width: 40%;
 	margin: 0 auto;
@@ -148,7 +148,7 @@ img {
 	z-index: 1;
 	overflow: auto;
 	left: 30%;
-	top: 30%;
+	top: 10%;
 }
 
 .modal-body {
@@ -166,19 +166,15 @@ img {
 
 .close button {
 	border: none;
-	background-color: rgb(219, 219, 219);
+	color: rgb(198, 192, 192)
+	background-color: rgb(255, 255, 255);
 	font-size: 2rem;
 	cursor: pointer;
 }
 
-.close button:hover {
-	color: rgb(255, 255, 255);
-}
-
 .modal-footer {
-	/*background-color: rgb(219, 219, 219);*/
 	background-color: rgb(255, 255, 255);
-	border-top: solid 2px rgb(219, 219, 219);
+	border-top: solid 1px rgb(219, 219, 219);
 	text-align: right;
 }
 
@@ -207,7 +203,7 @@ img {
 
 
 .gameOverModal {
-	border: solid 2px rgb(221, 221, 221);
+	border: solid 1px rgb(221, 221, 221);
 	border-radius: 10px;
 	width: 40%;
 	margin: 0 auto;
@@ -216,14 +212,13 @@ img {
 	z-index: 1;
 	overflow: auto;
 	left: 30%;
-	top: 30%;
+	top: 10%;
 }
 
 .modal-header {
-	/*background-color: rgb(219, 219, 219);*/
 	background-color: rgb(255, 255, 255);
 	text-align: right;
-	border-bottom: solid 2px rgb(219, 219, 219);
+	border-bottom: solid 1px rgb(219, 219, 219);
 }
 
 .modal-body {
@@ -248,17 +243,14 @@ img {
 
 .close button {
 	border: none;
-	background-color: rgb(219, 219, 219);
+	background-color: rgb(255, 255, 255);
+	color: rgb(198, 192, 192);
 	font-size: 2rem;
 	cursor: pointer;
 }
 
-.close button:hover {
-	color: rgb(255, 255, 255);
-}
 
 .modal-footer {
-	/*background-color: rgb(219, 219, 219);*/
 	background-color: rgb(255, 255, 255);
 	text-align: right;
 }
